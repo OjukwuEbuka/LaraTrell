@@ -30,6 +30,7 @@ export default {
             .then(res => {
                 if(res.status == 201){
                     this.item.name = "";
+                    this.$emit('reloadlist');
                 }
             })
             .catch(err => {
