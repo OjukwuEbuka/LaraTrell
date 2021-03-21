@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,13 +30,12 @@ Route::prefix('/item')->group( function() {
     Route::delete('/{id}', [ItemController::class, 'destroy']);
 });
 
-Route::group(['middleware' => 'auth:api'], function(){
+Route::middleware('auth:api')->group(function(){
     Route::resource('/tasks', TaskController::class);
     
     Route::post('/categories/{category}/tasks', [TaskController::class, 'tasks']);
     Route::resource('/categories', CategoryController::class);
-
 });
 
-Route::post('/login', [UserController::class, 'login']);
-Route::post('/register', [UserController::class, 'register']);
+Route::post('login', [UserController::class, 'login']);
+Route::post('register', [UserController::class, 'register']);
